@@ -31,8 +31,8 @@ while True:
     try:
         with sr.Microphone() as source:
             recog.adjust_for_ambient_noise(source)
+            audio = recog.listen(source, timeout=1.8, phrase_time_limit=1.2)
             print("Lestening...")
-            audio = recog.listen(source, timeout=1.8, phrase_time_limit=1)
         word = recog.recognize_google(audio)
 
         if(word.lower() == "jarvis"):
@@ -40,9 +40,11 @@ while True:
 
             with sr.Microphone() as source:
                 recog.adjust_for_ambient_noise(source)
-                print("Jarvis Active...listenning for command")
                 audio = recog.listen(source)
-                recog.pause_threshold=0.7
+                recog.pause_threshold=1
+                print("Jarvis Active...listenning for command")
+                
+                
             command = recog.recognize_google(audio)
             processcommand(command)
 
